@@ -93,10 +93,10 @@
 
     	
     ##节点接口：
-    chain_url=http://13.52.165.98:8888
+    chain_url=http://13.xx.xx.xx:8888
     
     ##钱包接口：
-    wallet_url=http://13.52.165.98:8900
+    wallet_url=http://13.xx.xx.xx:8900
     
     ##测试网络id：e70aaab8997e1dfce58fbfac80cbbb8fecec7b99cf982a9444273cbc64c41473
     ##主网id： aca376f206b8fc25a6ed44dbdc66547c36c6c33e3a119ffbeaef943642f0e906
