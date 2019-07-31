@@ -50,11 +50,6 @@ func SignTransaction(method string,account_name string,owner_key string,active_k
 	}
 
 
-	data_newAccount:=newAccountToBin.JsonToBin(account_name,owner_key,active_key1,active_key2)
-	data_buyRam:=buyRamToBin.JsonToBin(account_name,buyRamAmount)
-	data_delegatebw:=delegatebwToBin.JsonToBin(account_name,buyCpuAmount,buyNetAmount)
-
-
 
 
 	//RefBlockNum:=GetInfo()
@@ -74,10 +69,15 @@ func SignTransaction(method string,account_name string,owner_key string,active_k
 	timestamp:=strings.Replace(timestamp_2," ","T",-1)
 	//fmt.Println(timestamp)
 
-	var wallet_name =configMap["wallet_name"]
-	var wallet_password =configMap["wallet_password"]
+
 	if method=="newaccount" {
+		var wallet_name =configMap["wallet_name"]
+		var wallet_password =configMap["wallet_password"]
 		//Authorization_1,_:=json.Marshal(Authorization_0)
+
+		data_newAccount:=newAccountToBin.JsonToBin(account_name,owner_key,active_key1,active_key2)
+		data_buyRam:=buyRamToBin.JsonToBin(account_name,buyRamAmount)
+		data_delegatebw:=delegatebwToBin.JsonToBin(account_name,buyCpuAmount,buyNetAmount)
 
 		Actions_buyram:=Actions{
 			Account:"eosio",
@@ -165,8 +165,11 @@ func SignTransaction(method string,account_name string,owner_key string,active_k
 		}
 
 	}else if method=="buyram"{
+		var wallet_name =configMap["wallet_name"]
+		var wallet_password =configMap["wallet_password"]
+		data_buyRam:=buyRamToBin.JsonToBin(account_name,buyRamAmount)
 
-
+		fmt.Println("获取编码后的data数据:",data_buyRam)
 		//Authorization_1,_:=json.Marshal(Authorization_0)
 
 
@@ -243,6 +246,85 @@ func SignTransaction(method string,account_name string,owner_key string,active_k
 
 
 	}else if method=="delegatebw"{
+		var wallet_name =configMap["wallet_name"]
+		var wallet_password =configMap["wallet_password"]
+		data_delegatebw:=delegatebwToBin.JsonToBin(account_name,buyCpuAmount,buyNetAmount)
+
+		fmt.Println("获取编码后的data数据：",data_delegatebw)
+
+
+
+		Actions_delegatebw:=Actions{
+			Account:"eosio",
+			Name:"delegatebw",
+			Authorization:[]interface{}{Authorization_0},
+			Data:data_delegatebw,
+		}
+
+
+		//Actions_1,_:=json.Marshal(Actions_0)
+
+		sign_0:=sign{
+			RefBlockNum:RefBlockNum,
+			RefBlockPrefix:RefBlockPrefix,
+			Expiration:timestamp,
+			Actions:[]interface{}{Actions_delegatebw},
+		}
+
+		Actions_push:=[]interface{}{Actions_delegatebw}
+
+
+
+		sign_transaction_1:=[]interface{}{sign_0,[]string{public_key},chain_id}
+
+		sign_transaction_2,_:=json.Marshal(sign_transaction_1)
+
+		sign_transaction :=string(sign_transaction_2)
+
+
+		// fmt.Println(reflect.TypeOf(sign_0))
+
+
+		isTrue:=lock.Unlock(wallet_name,wallet_password)
+		if isTrue {
+			body :=httpPost.HttpPost(sign_transaction,"wallet","sign_transaction")
+			fmt.Println("sign_transaction签名返回数据：",string(body))
+
+
+			type sign_respon struct {
+				Expiration         string        `json:"expiration"`
+				RefBlockNum        int           `json:"ref_block_num"`
+				RefBlockPrefix     int           `json:"ref_block_prefix"`
+				MaxNetUsageWords   int           `json:"max_net_usage_words"`
+				MaxCPUUsageMs      int           `json:"max_cpu_usage_ms"`
+				DelaySec           int           `json:"delay_sec"`
+				ContextFreeActions []interface{} `json:"context_free_actions"`
+				Actions            []struct {
+					Account       string `json:"account"`
+					Name          string `json:"name"`
+					Authorization []struct {
+						Actor      string `json:"actor"`
+						Permission string `json:"permission"`
+					} `json:"authorization"`
+					Data string `json:"data"`
+				} `json:"actions"`
+				TransactionExtensions []interface{} `json:"transaction_extensions"`
+				Signatures            []string      `json:"signatures"`
+				ContextFreeData       []interface{} `json:"context_free_data"`
+			}
+
+
+
+			var sign_respon_0 sign_respon
+			json.Unmarshal(body,&sign_respon_0)
+			fmt.Println("获取签名Signatures：",sign_respon_0.Signatures)
+
+
+			return sign_respon_0.Signatures,Actions_push,timestamp,RefBlockNum,RefBlockPrefix
+		}else {
+			fmt.Println("解锁失败")
+		}
+
 
 	}else {
 		fmt.Println(method," 参数错误")

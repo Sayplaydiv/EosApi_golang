@@ -91,6 +91,8 @@
     	
 ####5.配置文件：
 
+#####位置：~/config/config.ini
+#####准备：一个用于创建，购买ram抵押等的其他账户的部署账户
     	
     ##节点接口：
     chain_url=http://13.xx.xx.xx:8888
@@ -113,3 +115,144 @@
     
     ##部署账户名称：
     super_account=dacbtest1111	 	
+    
+    
+    
+####6.购买ram内存：执行入口buyRam.go
+//参数栗子：
+
+//使用的方法
+```
+	var method="buyram"
+```
+//接收ram的账户
+
+```
+	var account_name="eostest22322"
+```
+
+//要购买ram的数量
+
+```
+	var buyRamAmount="1.0000 EOS"
+```
+
+//购买成功，return返回值：block_num交易所在块为int类型，transaction_id为string类型
+
+```
+	transaction_id,block_num:=server.PushTransaction(method,account_name,"","","",buyRamAmount,"","")
+	fmt.Println(transaction_id,block_num)    
+```    
+
+####7.抵押cpu和net：执行入口delegatebw.go
+//参数栗子：
+
+//接收cpu和net的账户
+```
+	var account_name="eostest22322"
+```
+//给新账户抵押cpu的数量
+```
+	var buyCpuAmount="1.0000 EOS"
+```
+//给新账户抵押net的数量
+```	
+	var buyNetAmount="1.0000 EOS"
+```
+//使用的方法
+```	
+	var method="delegatebw"
+```
+//抵押成功，交易transaction_id为string,交易所在区块block_num为
+```	
+	transaction_id,block_num:=server.PushTransaction(method,account_name,"","","","",buyCpuAmount,buyNetAmount)
+	fmt.Println(transaction_id,block_num)
+```
+
+####8.转帐操作：执行入口transfer.go
+//参数栗子
+
+//出账用户名称
+
+	from_address:="dacbtest1111"
+
+//收账用户名称
+
+	to_address:="eostest22322"
+
+//转帐金额
+
+	quantity:="1.0000 EOS"
+
+//memo备注信息
+
+	memo:="这里是备注"
+
+//出账账户所在的钱包名称（用于签名）：
+
+	wallet_name:="dacbtest111"
+
+//出账账户所在的密码名称（用于签名）：
+
+	wallet_password:="PW5J4RParpAxZy7N5y1N4VuCsktL9Y7iWumZgfC5oYVhjAnMoJzXN"
+
+	
+//转帐的active权限（我一般用多重签名，两把密钥对来控制一个权限，如果active只有一个active_publicKey2置为空即可如： ""）
+
+	active_publicKey1:="EOS72QpGhNGtVi6QALhiQQhBZ2VvvjWAvcQ2jDcGLQ7tLPidD7KPJ"
+	active_publicKey2:="EOS7xs9YJhZuPaYU2NuYZEbov1xorEEJvomKLyRwiVDCAmqpuALm3"
+
+
+
+//return返回值交易hash的transaction_id为string类型，block_num为int类型
+
+	transaction_id,block_num:=server.PushTransfer(from_address,to_address,quantity,memo,wallet_name,wallet_password,active_publicKey1,active_publicKey2)
+	fmt.Println(transaction_id,block_num)
+
+####9.查询余额：执行入口getBlance.go
+//参数栗子：
+
+//发行账户：EOS为eosio.token，其他代币根据添其发行账户的名称，例如BMC代币的发行账户为blockiotoken
+
+	code:="eosio.token"
+	code_0:="blockiotoken"
+
+//需要查询的账户名称
+
+	account:="eostest22322"
+	account_0:="junglefaucet"
+
+//需要查询的币种名称
+
+    symbol:="EOS"
+	symbol_0:="BMC"
+
+
+
+//return返回值为[]string数组
+
+	balance:=server.GetBalance(code,account,symbol)
+	balance_0:=server.GetBalance(code_0,account_0,symbol_0)
+	fmt.Println("EOS余额为：",balance)
+	fmt.Println("BMC余额为：",balance_0)
+	
+####10,查询最新块高：执行入口getInfo.go
+
+	last_block:=server.GetInfo()
+	fmt.Println("最新块高为：",last_block)	
+	
+####11.查询指定块高的区块信息：执行入口getBlcokInfo.go
+//参数栗子：
+
+需要查询的块高度
+
+	blockNum:=41897731
+
+//return返回为json字符串，可根据需求解析相应的结构体
+
+	body_json:=server.GetBlockInfo(blockNum)
+	fmt.Println(body_json)
+
+}	
+	
+	

@@ -1,7 +1,5 @@
 package main
 
-import "eosApi/server"
-
 func main(){
 
 	//购买ram编码
@@ -50,5 +48,33 @@ func main(){
 
 	//提交交易
 	//server.PushTransaction()
-	server.SignTransaction("buyram","eostest22322","","","","1.0000 EOS","","")
+
+	//buyram
+	//server.SignTransaction("buyram","eostest22322","","","","1.0000 EOS","","")
+
+	//抵押cpu和net
+	//server.SignTransaction("delegatebw","eostest22322","","","","","1.0000 EOS","1.0000 EOS")
+
+	//transfer编码
+	//transfer_data:=transfer.JsonToBin("dacbtest1111","eostest22322","1.0000 EOS","qq771254336")
+	//fmt.Println(transfer_data)
+
+
+	//5JJj9ijPhnauwAaY2vnVFooc5VVLetXct27vtaEaHt1GqE16ojr
+	//5JGnraLC2XUy3dyt15EBjDQdy63gdt4n7BTPpcV68rbYewhvgza
+
+	//转帐交易签名：
+	/*
+	Signatures,Actions_push,timestamp,RefBlockNum,RefBlockPrefix:=server.SignTransfer("transfer","dacbtest1111","eostest22322","10.0000 EOS","qq771254336","dacbtest111","PW5J4RParpAxZy7N5y1N4VuCsktL9Y7iWumZgfC5oYVhjAnMoJzXN","EOS72QpGhNGtVi6QALhiQQhBZ2VvvjWAvcQ2jDcGLQ7tLPidD7KPJ","EOS7xs9YJhZuPaYU2NuYZEbov1xorEEJvomKLyRwiVDCAmqpuALm3")
+	fmt.Println("Signatures:",Signatures)
+	fmt.Println("Actions_push:",Actions_push)
+	fmt.Println("timestamp:",timestamp)
+	fmt.Println("RefBlockNum:",RefBlockNum)
+	fmt.Println("RefBlockPrefix:",RefBlockPrefix)
+	*/
+
+	//transaction_id,block_num:=server.PushTransfer("dacbtest1111","eostest22322","1.0000 EOS","qq771254336","dacbtest111","PW5J4RParpAxZy7N5y1N4VuCsktL9Y7iWumZgfC5oYVhjAnMoJzXN","EOS72QpGhNGtVi6QALhiQQhBZ2VvvjWAvcQ2jDcGLQ7tLPidD7KPJ","EOS7xs9YJhZuPaYU2NuYZEbov1xorEEJvomKLyRwiVDCAmqpuALm3")
+
+	//fmt.Println(transaction_id,block_num)
+
 }

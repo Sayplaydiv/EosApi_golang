@@ -1,6 +1,9 @@
 package main
 
-import "eosApi/server"
+import (
+	"eosApi/server"
+	"fmt"
+)
 
 func main()  {
 
@@ -15,5 +18,5 @@ func main()  {
 	var buyRamAmount="1.0000 EOS"
 
 	transaction_id,block_num:=server.PushTransaction(method,account_name,"","","",buyRamAmount,"","")
-
+	fmt.Println(transaction_id,block_num)
 }
