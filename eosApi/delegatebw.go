@@ -9,13 +9,13 @@ func main()  {
 
 
 	//接收cpu和net的账户
-	var account_name="eostest22322"
+	var account_name="dacbeostest2"
 
 	//给新账户抵押cpu的数量
-	var buyCpuAmount="1.0000 EOS"
+	var buyCpuAmount="5.0000 EOS"
 
 	//给新账户抵押net的数量
-	var buyNetAmount="1.0000 EOS"
+	var buyNetAmount="5.0000 EOS"
 
 	//使用的方法
 	var method="delegatebw"

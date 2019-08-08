@@ -12,10 +12,10 @@ func main() {
 	from_address:="dacbtest1111"
 
 	//收账用户名称
-	to_address:="eostest22322"
+	to_address:="dacbeostest2"
 
 	//转帐金额
-	quantity:="1.0000 EOS"
+	quantity:="20.0000 EOS"
 
 	//memo备注信息
 	memo:="这里是备注"

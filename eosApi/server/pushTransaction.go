@@ -155,15 +155,13 @@ func PushTransaction(method string,account_name string,owner_public_key string,a
 			block_num:=Push_respon_0.Processed.BlockNum
 			account_name:=Push_respon_0.Processed.ActionTraces[0].Act.Data.Name
 			owner_publickey:=Push_respon_0.Processed.ActionTraces[0].Act.Data.Owner.Keys[0].Key
-			active_publickey1:=Push_respon_0.Processed.ActionTraces[0].Act.Data.Active.Keys[0].Key
-			active_publickey2:=Push_respon_0.Processed.ActionTraces[0].Act.Data.Active.Keys[1].Key
+
 
 			fmt.Println("交易hash为：",transaction_id)
 			fmt.Println("交易所在区块为：",block_num)
 			fmt.Println("创建的账户名称为：",account_name)
 			fmt.Println("账户的owner权限公钥为：",owner_publickey)
-			fmt.Println("账户的active权限公钥1为：",active_publickey1)
-			fmt.Println("账户的active权限公钥2为：",active_publickey2)
+
 
 			fmt.Println("提交交易返回信息为：",string(body))
 
