@@ -83,14 +83,14 @@ func SignTransaction(method string,account_name string,owner_key string,active_k
 			Account:"eosio",
 			Name:"buyram",
 			Authorization:[]interface{}{Authorization_0},
-			Data:data_newAccount,
+			Data:data_buyRam,
 		}
 
 		Actions_newaccount:=Actions{
 			Account:"eosio",
 			Name:"newaccount",
 			Authorization:[]interface{}{Authorization_0},
-			Data:data_buyRam,
+			Data:data_newAccount,
 		}
 
 		Actions_delegatebw:=Actions{
@@ -106,10 +106,10 @@ func SignTransaction(method string,account_name string,owner_key string,active_k
 			RefBlockNum:RefBlockNum,
 			RefBlockPrefix:RefBlockPrefix,
 			Expiration:timestamp,
-			Actions:[]interface{}{Actions_buyram,Actions_newaccount,Actions_delegatebw},
+			Actions:[]interface{}{Actions_newaccount,Actions_buyram,Actions_delegatebw},
 		}
 
-		Actions_push:=[]interface{}{Actions_buyram,Actions_newaccount,Actions_delegatebw}
+		Actions_push:=[]interface{}{Actions_newaccount,Actions_buyram,Actions_delegatebw}
 
 
 
@@ -125,6 +125,7 @@ func SignTransaction(method string,account_name string,owner_key string,active_k
 		// fmt.Println(reflect.TypeOf(sign_0))
 
 
+		fmt.Println("sign_transaction请求信息：",sign_transaction)
 
 
 		isTrue:=lock.Unlock(wallet_name,wallet_password)

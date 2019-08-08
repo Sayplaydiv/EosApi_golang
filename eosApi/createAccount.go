@@ -11,7 +11,7 @@ func main()  {
 
 	//例如：
 	//创建的账户名称
-	var create_account_name="eostest22322"
+	var create_account_name="eostest33222"
 
 	//owner公钥
 	var owner_publickey="EOS7JwTdbdFPF8MQ5XGityebKd6V19RrbTF9JSs2QYdkKv9FXDmJ6"
