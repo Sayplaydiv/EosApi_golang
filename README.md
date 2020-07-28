@@ -1,4 +1,4 @@
-7
+8
 ##EOSapi文档 golang
 
 ####1.创建钱包：执行入口createWallet.go
